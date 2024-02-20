@@ -1,0 +1,52 @@
+
+<div>
+    <form [formGroup]="solicitudForm" (ngSubmit)="onSubmit()">
+      <div>
+        <label for="monto">Monto:</label>
+        <input type="number" id="monto" formControlName="monto">
+        <div *ngIf="solicitudForm.get('monto').hasError('required') && solicitudForm.get('monto').touched">
+          El monto es requerido.
+        </div>
+        <div *ngIf="solicitudForm.get('monto').hasError('min') && solicitudForm.get('monto').touched">
+          El monto debe ser mayor o igual a cero.
+        </div>
+      </div>
+  
+      <div>
+        <label for="meses">Meses:</label>
+        <input type="number" id="meses" formControlName="meses">
+        <div *ngIf="solicitudForm.get('meses').hasError('required') && solicitudForm.get('meses').touched">
+          El número de meses es requerido.
+        </div>
+        <div *ngIf="solicitudForm.get('meses').hasError('min') && solicitudForm.get('meses').touched">
+          El número de meses debe ser mayor o igual a uno.
+        </div>
+      </div>
+  
+      <button type="submit" [disabled]="solicitudForm.invalid">Registrar Solicitud</button>
+    </form>
+  
+    
+    <div *ngIf="tablaAmortizacion">
+      <h2>Tabla de Amortización:</h2>
+      <table>
+        <thead>
+          <tr>
+            <th># Cuota</th>
+            <th>Cuota Capital</th>
+            <th>Cuota Interés</th>
+            <th>Cuota Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cuota of tablaAmortizacion">
+            <td>{{ cuota.numeroCuota }}</td>
+            <td>{{ cuota.cuotaCapital }}</td>
+            <td>{{ cuota.cuotaInteres }}</td>
+            <td>{{ cuota.cuotaTotal }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
